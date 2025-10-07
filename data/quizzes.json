@@ -3,18 +3,34 @@
     {
       "id": "q1",
       "type": "mc",
-      "q": "Normal saline concentration is…?",
-      "choices": ["0.9%", "3%", "5%", "7.5%"],
+      "q": "Normal saline (NS) concentration is…?",
+      "choices": ["0.9% sodium chloride", "3% sodium chloride", "5% dextrose", "7.5% sodium chloride"],
       "a": 0,
-      "ex": "NS is 0.9% sodium chloride."
+      "ex": "NS is 0.9% NaCl and is isotonic with blood."
     },
     {
       "id": "q2",
       "type": "mc",
-      "q": "Which rhythm requires immediate defibrillation?",
-      "choices": ["Asystole", "VT pulseless", "Sinus brady", "Junctional"],
+      "q": "Which rhythm is shockable in the pulseless patient?",
+      "choices": ["Asystole", "Pulseless VT", "PEA", "Sinus tachycardia"],
       "a": 1,
-      "ex": "Pulseless VT/VF → defibrillate."
+      "ex": "Pulseless VT and VF are shockable rhythms."
+    },
+    {
+      "id": "q3",
+      "type": "mc",
+      "q": "First-line ventilatory support for conscious COPD exacerbation with increased work of breathing per protocol?",
+      "choices": ["Intubation", "CPAP", "NRB at 15 L/min only", "Bag-valve-mask"],
+      "a": 1,
+      "ex": "CPAP reduces work of breathing and improves gas exchange."
+    },
+    {
+      "id": "q4",
+      "type": "mc",
+      "q": "12-lead should be obtained within how many minutes of patient contact for suspected STEMI?",
+      "choices": ["2 min", "5 min", "10 min", "15 min"],
+      "a": 1,
+      "ex": "Local rule set calls for a 12-lead within 5 minutes."
     }
   ]
 }
