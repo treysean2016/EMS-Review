@@ -248,3 +248,52 @@ function applyQuizModeUI(){
 // Re-apply when quizzes page is shown
 const _renderQuizList_apply = renderQuizList;
 renderQuizList = async function(){ await _renderQuizList_apply(); applyQuizModeUI(); };
+// ---- bootstrap: make the site clickable even if other code throws ----
+function __wireNav() {
+  // if your HTML uses <button class="nav-btn" data-target="...">
+  const buttons = document.querySelectorAll('.nav-btn');
+  if (buttons.length) {
+    buttons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        try {
+          // showPage() already exists in your file; use it if present
+          if (typeof showPage === 'function') {
+            showPage(btn.dataset.target);
+          } else {
+            // minimal fallback: toggle sections by id
+            document.querySelectorAll('main > section').forEach(s => s.classList.remove('visible'));
+            const target = document.getElementById(btn.dataset.target);
+            if (target) target.classList.add('visible');
+          }
+        } catch (e) {
+          console.error(e);
+          alert('Navigation error: ' + e.message);
+        }
+      });
+    });
+  }
+}
+
+// optional: pre-load quizzes so quiz pages have data ready
+async function __primeQuizzes() {
+  try {
+    if (typeof loadQuizzes === 'function') {
+      window.QUIZZES = await loadQuizzes();
+    }
+  } catch (e) {
+    console.error('Prime quizzes failed:', e);
+  }
+}
+
+// Run after the page is ready. If you already call init(), this wraps it safely.
+window.addEventListener('load', async () => {
+  try {
+    __wireNav();
+    await __primeQuizzes();
+    // default page
+    if (typeof showPage === 'function') showPage('home');
+  } catch (e) {
+    console.error('Init error:', e);
+    alert('JavaScript init error: ' + e.message);
+  }
+});
