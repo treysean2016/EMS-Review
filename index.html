@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>NHRMC EMS — AEMT Study Dashboard</title>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+<header class="site-header">
+  <h1>Novant NHRMC EMS • AEMT Study Dashboard</h1>
+  <nav>
+    <button id="themeToggle" class="nav-btn" style="margin-right:auto">🌙 Dark Mode</button>
+    <button class="nav-btn" data-target="home">Home</button>
+    <button class="nav-btn" data-target="schedule">Weekly Schedule</button>
+    <button class="nav-btn" data-target="quizzes">Quizzes</button>
+    <button class="nav-btn" data-target="rhythms">Rhythm Lab</button>
+    <button class="nav-btn" data-target="protocols">Quick Reference</button>
+    <button class="nav-btn" data-target="charting">Charting Practice</button>
+    <button class="nav-btn" data-target="shiftprep">Shift Prep Cards</button>
+    <button class="nav-btn" data-target="rules">Rules & Policies</button>
+    <button class="nav-btn" data-target="notes">Your Notes</button>
+  </nav>
+</header>
+
+<main>
+  <!-- HOME -->
+  <section id="home" class="page visible">
+    <div class="card">
+      <h2>Welcome back, Treysean 👋</h2>
+      <p>This dashboard follows your 4‑week AEMT review plan focused on operations & clinical knowledge, tuned for Novant Health / New Hanover County EMS.</p>
+      <a class="cta" href="#schedule" onclick="showPage('schedule')">Start Today’s Lesson</a>
+    </div>
+
+    <div class="grid">
+      <div class="card">
+        <h3>Today’s Focus</h3>
+        <p id="todaysFocus">Open the schedule to see the current day’s topic and quiz.</p>
+      </div>
+      <div class="card">
+        <h3>Progress</h3>
+        <div class="progress"><div id="progressBar"></div></div>
+        <small id="progressText">0% complete</small>
+      </div>
+    </div>
+  </section>
+
+  <!-- SCHEDULE -->
+  <section id="schedule" class="page">
+    <h2>4‑Week Plan</h2>
+    <div id="weeks"></div>
+  </section>
+
+  <!-- QUIZZES -->
+  <section id="quizzes" class="page">
+    <h2>Quizzes</h2>
+    <div id="quizModeWrap" class="card" style="margin-bottom:12px"><strong>Quiz Mode:</strong> <label style="margin-left:8px"><input type="radio" name="quizMode" value="nontimed" checked> Non‑timed</label> <label style="margin-left:12px"><input type="radio" name="quizMode" value="timed"> Timed</label> <span id="quizModeNote" style="margin-left:12px;opacity:.75">Non‑timed: take your time, review before submitting.</span></div>
+    <div id="quizList" class="grid"></div>
+    <div id="quizRunner" class="card hidden">
+      <h3 id="quizTitle">Quiz</h3>
+      <div id="quizContainer"></div>
+      <button id="submitQuiz" class="cta">Submit</button>
+      <div id="quizResults"></div>
+    </div>
+  </section>
+
+  <!-- PROTOCOL QUICK REF -->
+  
+  <section id="protocols" class="page">
+    <h2>Quick Reference</h2>
+    <div class="tabs" id="protocolTabs">
+      <button class="tab active" data-tab="airway">Airway/Breathing</button>
+      <button class="tab" data-tab="anaphylaxis">Anaphylaxis</button>
+      <button class="tab" data-tab="chestpain">Chest Pain</button>
+      <button class="tab" data-tab="stroke">Stroke</button>
+      <button class="tab" data-tab="copd">COPD/Asthma</button>
+      <button class="tab" data-tab="fluids">Fluids</button>
+      <button class="tab" data-tab="cardio">Cardio/Medical</button>
+    </div>
+    <div id="protContent">
+      <div class="prot-pane" data-tab="airway">
+        <div class="grid">
+          <div class="card">
+            <h3>Airway / Breathing</h3>
+            <ul>
+              <li><strong>Threats:</strong> obstruction, facial/oral bleeding, RR &lt;8 or &gt;28.</li>
+              <li><strong>CPAP</strong> — Indications: CHF, COPD, pneumonia. Contra: SBP &lt; 90, unresponsive, suspected pneumo.</li>
+              <li><strong>ETI confirmation:</strong> bilateral breath sounds + continuous capnography waveform.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="prot-pane hidden" data-tab="anaphylaxis">
+        <div class="card"><h3>Anaphylaxis (AEMT)</h3>
+          <ul>
+            <li>Epinephrine 1:1,000 IM lateral thigh; repeat per protocol.</li>
+            <li>Airway &amp; oxygen; consider albuterol for bronchospasm.</li>
+            <li>Adjuncts per protocol: diphenhydramine, famotidine, fluids for hypotension.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="prot-pane hidden" data-tab="chestpain">
+        <div class="card"><h3>Chest Pain</h3>
+          <ul>
+            <li>12‑lead before nitroglycerin; transmit when possible.</li>
+            <li>Nitro if no contraindications (SBP adequate, no PDE‑5); aspirin per protocol.</li>
+            <li>Monitor, IV access, reassess vitals &amp; pain scale.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="prot-pane hidden" data-tab="stroke">
+        <div class="card"><h3>Stroke</h3>
+          <ul>
+            <li>RACE score; identify last-known-well; check glucose.</li>
+            <li>Avoid hypotension; manage airway if needed; rapid transport to stroke center.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="prot-pane hidden" data-tab="copd">
+        <div class="card"><h3>COPD/Asthma</h3>
+          <ul>
+            <li>Wheezes, accessory muscle use; consider albuterol/duoneb per protocol.</li>
+            <li>Target SpO₂ 88–92% in CO2 retainers; others 94–99%.</li>
+            <li>Escalate to CPAP for fatigue or refractory hypoxia.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="prot-pane hidden" data-tab="fluids">
+        <div class="card">
+          <h3>Fluids</h3>
+          <ul>
+            <li><strong>Normal Saline (0.9%)</strong>: isotonic; for dehydration/hypovolemia/shock.</li>
+            <li><strong>Lactated Ringers</strong>: isotonic with Na/K/Ca/Cl; useful in burns/sepsis/acidosis; caution in hyperK and severe renal/liver failure.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="prot-pane hidden" data-tab="cardio">
+        <div class="card">
+          <h3>Cardio / Medical</h3>
+          <ul>
+            <li><strong>MAP</strong>: average arterial pressure across cardiac cycle.</li>
+            <li><strong>Hyperkalemia cues</strong>: peaked T, wide QRS; manage per protocol.</li>
+            <li><strong>Pulmonary Embolism</strong>: pleuritic CP, SOB, tachycardia, hypoxia; O₂ to 94–99%, 12‑lead, IV access.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <small class="disclaimer">Always follow current Novant Health / New Hanover County EMS protocols and medical control. This dashboard is a personal study aid.</small>
+  </section>
+
+
+  <!-- CHARTING PRACTICE -->
+  <section id="charting" class="page">
+    <h2>Charting Practice</h2>
+    <div class="card">
+      <h3>Refusal — General</h3>
+      <textarea id="refusalInput" rows="7" placeholder="Write your refusal narrative here..."></textarea>
+      <button class="cta" onclick="reveal('refusal')">Show Example</button>
+      <pre id="refusalOutput" class="example hidden"></pre>
+    </div>
+    <div class="card">
+      <h3>Chest Pain — Transport</h3>
+      <textarea id="cpInput" rows="7" placeholder="Write your chest pain narrative..."></textarea>
+      <button class="cta" onclick="reveal('cp')">Show Example</button>
+      <pre id="cpOutput" class="example hidden"></pre>
+    </div>
+  </section>
+
+  <!-- SHIFT PREP -->
+  <section id="shiftprep" class="page">
+    <h2>Shift Prep Cards</h2>
+    <div class="grid" id="prepCards"></div>
+  </section>
+
+  <!-- NOTES GALLERY -->
+  <section id="notes" class="page">
+    <h2>Your Handwritten Notes</h2>
+    <div class="gallery">
+    <a href="assets/notes_1.jpg" target="_blank"><img src="assets/notes_1.jpg" alt="notes"/></a><a href="assets/notes_2.jpg" target="_blank"><img src="assets/notes_2.jpg" alt="notes"/></a><a href="assets/notes_3.jpg" target="_blank"><img src="assets/notes_3.jpg" alt="notes"/></a><a href="assets/notes_4.jpg" target="_blank"><img src="assets/notes_4.jpg" alt="notes"/></a><a href="assets/notes_5.jpg" target="_blank"><img src="assets/notes_5.jpg" alt="notes"/></a><a href="assets/notes_6.jpg" target="_blank"><img src="assets/notes_6.jpg" alt="notes"/></a><a href="assets/notes_7.jpg" target="_blank"><img src="assets/notes_7.jpg" alt="notes"/></a><a href="assets/notes_8.jpg" target="_blank"><img src="assets/notes_8.jpg" alt="notes"/></a><a href="assets/notes_9.jpg" target="_blank"><img src="assets/notes_9.jpg" alt="notes"/></a><a href="assets/notes_10.jpg" target="_blank"><img src="assets/notes_10.jpg" alt="notes"/></a>
+    </div>
+  </section>
+
+  <!-- RHYTHM LAB -->
+  <section id="rhythms" class="page">
+    <h2>Rhythm Lab — 12‑Lead (Simulated)</h2>
+    <p>These simulated training strips mimic a Zoll‑style 12‑lead layout for practice (not patient data).</p>
+    <div class="gallery">
+      <a href="assets/rhythm_nsr.png" target="_blank"><img src="assets/rhythm_nsr.png" alt="NSR"/></a>
+      <a href="assets/rhythm_stemi_anterior.png" target="_blank"><img src="assets/rhythm_stemi_anterior.png" alt="Anterior STEMI"/></a>
+      <a href="assets/rhythm_afib.png" target="_blank"><img src="assets/rhythm_afib.png" alt="AFib"/></a>
+      <a href="assets/rhythm_aflutter.png" target="_blank"><img src="assets/rhythm_aflutter.png" alt="AFlutter"/></a>
+      <a href="assets/rhythm_svt.png" target="_blank"><img src="assets/rhythm_svt.png" alt="SVT"/></a>
+      <a href="assets/rhythm_vt.png" target="_blank"><img src="assets/rhythm_vt.png" alt="VT"/></a>
+      <a href="assets/rhythm_vf.png" target="_blank"><img src="assets/rhythm_vf.png" alt="VF"/></a>
+      <a href="assets/rhythm_asystole.png" target="_blank"><img src="assets/rhythm_asystole.png" alt="Asystole"/></a>
+    </div>
+  </section>
+
+
+  <!-- RULES & POLICIES REVIEW -->
+  <section id="rules" class="page">
+    <h2>Rules &amp; Policies Review</h2>
+    <p>Quick visual references for agency rules, STEMI/Chest Pain/Stroke checklists, cardiac arrest, trauma, and NC OEMS disposition policies.</p>
+    <div class="gallery">
+      <a href="assets/rules_trauma.jpg" target="_blank"><img src="assets/rules_trauma.jpg" alt="rules_trauma.jpg"/></a>
+      <a href="assets/rules_cardiacarrest.jpg" target="_blank"><img src="assets/rules_cardiacarrest.jpg" alt="rules_cardiacarrest.jpg"/></a>
+      <a href="assets/rules_stemi.jpg" target="_blank"><img src="assets/rules_stemi.jpg" alt="rules_stemi.jpg"/></a>
+      <a href="assets/rules_chestpain.jpg" target="_blank"><img src="assets/rules_chestpain.jpg" alt="rules_chestpain.jpg"/></a>
+      <a href="assets/policy_deceased_subjects.jpg" target="_blank"><img src="assets/policy_deceased_subjects.jpg" alt="policy_deceased_subjects.jpg"/></a>
+      <a href="assets/policy_criteria_for_death.jpg" target="_blank"><img src="assets/policy_criteria_for_death.jpg" alt="policy_criteria_for_death.jpg"/></a>
+      <a href="assets/rules_stroke.jpg" target="_blank"><img src="assets/rules_stroke.jpg" alt="rules_stroke.jpg"/></a>
+      <a href="assets/trauma_activation_criteria.jpg" target="_blank"><img src="assets/trauma_activation_criteria.jpg" alt="trauma_activation_criteria.jpg"/></a>
+    </div>
+    <small class="disclaimer">These images are for study only. Follow current Novant Health / New Hanover County EMS guidance and NC OEMS policy.</small>
+  </section>
+
+</main>
+
+<footer>
+  <small>Built for <strong>Treysean Daugherty</strong> • Static site for GitHub Pages • Theme: navy / purple / white</small>
+</footer>
+
+<script src="data/quizzes.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
